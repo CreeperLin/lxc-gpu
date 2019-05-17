@@ -17,36 +17,34 @@ sudo apt-get update
 
 # Setup NFS
 sudo apt-get install -y nfs-common
-sudo mkdir -p /NAS/{Dataset,Share,Workspaces}
-sudo mkdir -p /newNAS/{Dataset,Share,Workspaces}
+sudo mkdir -p /NAS/{Datasets,Share,Workspaces}
+sudo mkdir -p /newNAS/{Datasets,Share,Workspaces}
 sudo mkdir -p /newNAS/Workspaces/{DMGroup,CVGroup,UCGroup,DRLGroup,AdsGroup,CrowdsourcingGroup,MLGroup,NLPGroup}
-sudo mkdir -p /newNAS/Dataset/{DMGroup,CVGroup,UCGroup,DRLGroup,AdsGroup,CrowdsourcingGroup,MLGroup,NLPGroup}
+sudo mkdir -p /newNAS/Datasets/{DMGroup,CVGroup,UCGroup,DRLGroup,AdsGroup,CrowdsourcingGroup,MLGroup,NLPGroup}
 sudo chmod -R 777 /NAS /newNAS
 cat <<EOM | sudo tee -a /etc/fstab
-172.16.2.30:/mnt/NAS/Dataset    /NAS/Dataset    nfs rw 0 0
-172.16.2.30:/mnt/NAS/Workspaces /NAS/Workspaces nfs rw 0 0
-172.16.2.30:/mnt/NAS/Share      /NAS/Share      nfs rw 0 0
-172.16.2.40:/mnt/NAS/Workspaces/DMGroup            /newNAS/Workspaces/DMGroup            nfs rw 0 0
-172.16.2.40:/mnt/NAS/Workspaces/CVGroup            /newNAS/Workspaces/CVGroup            nfs rw 0 0
-172.16.2.40:/mnt/NAS/Workspaces/UCGroup            /newNAS/Workspaces/UCGroup            nfs rw 0 0
-172.16.2.40:/mnt/NAS/Workspaces/MLGroup            /newNAS/Workspaces/MLGroup            nfs rw 0 0
-172.16.2.40:/mnt/NAS/Workspaces/DRLGroup           /newNAS/Workspaces/DRLGroup           nfs rw 0 0
-172.16.2.40:/mnt/NAS/Workspaces/AdsGroup           /newNAS/Workspaces/AdsGroup           nfs rw 0 0
-172.16.2.40:/mnt/NAS/Workspaces/NLPGroup           /newNAS/Workspaces/NLPGroup           nfs rw 0 0
-172.16.2.40:/mnt/NAS/Workspaces/CrowdsourcingGroup /newNAS/Workspaces/CrowdsourcingGroup nfs rw 0 0
-172.16.2.40:/mnt/NAS/Datasets/DMGroup            /newNAS/Datasets/DMGroup            nfs rw 0 0
-172.16.2.40:/mnt/NAS/Datasets/CVGroup            /newNAS/Datasets/CVGroup            nfs rw 0 0
-172.16.2.40:/mnt/NAS/Datasets/UCGroup            /newNAS/Datasets/UCGroup            nfs rw 0 0
-172.16.2.40:/mnt/NAS/Datasets/MLGroup            /newNAS/Datasets/MLGroup            nfs rw 0 0
-172.16.2.40:/mnt/NAS/Datasets/DRLGroup           /newNAS/Datasets/DRLGroup           nfs rw 0 0
-172.16.2.40:/mnt/NAS/Datasets/AdsGroup           /newNAS/Datasets/AdsGroup           nfs rw 0 0
-172.16.2.40:/mnt/NAS/Datasets/NLPGroup           /newNAS/Datasets/NLPGroup           nfs rw 0 0
-172.16.2.40:/mnt/NAS/Datasets/CrowdsourcingGroup /newNAS/Datasets/CrowdsourcingGroup nfs rw 0 0
+172.16.2.40:/mnt/NAS/Share            /newNAS/Share            nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Workspaces/DMGroup            /newNAS/Workspaces/DMGroup            nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Workspaces/CVGroup            /newNAS/Workspaces/CVGroup            nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Workspaces/UCGroup            /newNAS/Workspaces/UCGroup            nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Workspaces/MLGroup            /newNAS/Workspaces/MLGroup            nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Workspaces/DRLGroup           /newNAS/Workspaces/DRLGroup           nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Workspaces/AdsGroup           /newNAS/Workspaces/AdsGroup           nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Workspaces/NLPGroup           /newNAS/Workspaces/NLPGroup           nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Workspaces/CrowdsourcingGroup /newNAS/Workspaces/CrowdsourcingGroup nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Datasets/DMGroup            /newNAS/Datasets/DMGroup            nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Datasets/CVGroup            /newNAS/Datasets/CVGroup            nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Datasets/UCGroup            /newNAS/Datasets/UCGroup            nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Datasets/MLGroup            /newNAS/Datasets/MLGroup            nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Datasets/DRLGroup           /newNAS/Datasets/DRLGroup           nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Datasets/AdsGroup           /newNAS/Datasets/AdsGroup           nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Datasets/NLPGroup           /newNAS/Datasets/NLPGroup           nfs rw 0 0
+# 172.16.2.40:/mnt/NAS/Datasets/CrowdsourcingGroup /newNAS/Datasets/CrowdsourcingGroup nfs rw 0 0
 EOM
 sudo mount -a
 
 # Install essential softwares
-sudo apt-get install -y build-essential linux-headers-$(uname -r) htop tmux lxc ntp wget grep awk sed curl python3
+sudo apt-get install -y build-essential linux-headers-$(uname -r) htop tmux lxc ntp wget grep sed curl sysstat lm-sensors python3
 
 # Install NVIDIA Drivers
 sudo sh "$NVIDIA_DRIVER_INSTALLER" --silent
@@ -66,13 +64,13 @@ ls /dev/nvidia*
 sudo mkdir -p /public
 sudo cp "$LOGIN_BASH" /public/login.bash
 sudo chmod +x /public/login.bash
-sudo cp "$NEW_LXC_BASH" /root/new-lxc.bash
-sudo cp "$DEL_USER_BASH" /root/del-user.bash
+sudo cp "$NEW_LXC_BASH" /root/new_lxc.sh
+sudo cp "$DEL_USER_BASH" /root/del_user.sh
 sudo cp "$MONITOR_BASH" /root/monitor.bash
-sudo chmod +x /root/new-lxc.bash /root/del-user.bash /root/monitor.bash
+sudo chmod +x /root/new_lxc.sh /root/del_user.sh /root/monitor.bash
 sudo mkdir -p /root/lxc-public-images
 sudo cp "$TEMPLATE_TAR_GZ" /root/lxc-public-images/template.tar.gz
-sudo cp "$LXC_CONFIG_TEMPLATE" /root/lxc-public-images/lxc-config.template
+sudo cp "$LXC_CONFIG_TEMPLATE" /root/lxc-public-images/config.template
 
 # Update rc.local
 cat <<EOM | sudo tee /etc/rc.local

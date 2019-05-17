@@ -179,3 +179,10 @@ It's a really simple and straightforward procedure. IAM reads from its database 
 11. Server: set the default shell of user `lqchen` to the custom shell `/public/login.bash`
 
 
+## video tutorial
+
+https://asciinema.org/a/9hRrDb6DxV3B2uVcjdrcwwnkt
+
+https://asciinema.org/a/HNDVAjLSWtDQpTrV36lwpIvUW
+
+https://asciinema.org/a/bn5Npda2vvVYoEq5ZuygUqeGo

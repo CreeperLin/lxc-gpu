@@ -1,6 +1,6 @@
 #!/bin/bash
 IAM_HOST="iam.apexlab.org"
-SNAPSHOT_PATH="/NAS/Workspaces/lxc-snapshot"
+SNAPSHOT_PATH="/newNAS/Share/lxc-snapshot"
 NVIDIA_DRIVER_INSTALLER_DIR="/newNAS/Share/GPU_Server"
 PORTMAP_START=11000
 PORTMAP_END=12000
